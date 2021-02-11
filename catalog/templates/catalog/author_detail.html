@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Name: {{ author.last_name }}, {{ author.first_name }}</h1>
+
+  <p><strong>Birth Date:</strong> {{ author.date_of_birth }}</p>
+  
+  {% if author.date_of_death %}
+    <p><strong>Date of Death:</strong> {{ author.date_of_death }}</p>
+  {% endif %}
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h1>Book List</h1>
+    {% if author.book_set.all %}
+    <ul>
+      {% for book in author.book_set.all %}
+        <li>
+          <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
+        </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no books for this author.</p>
+    {% endif %}
+  </div>
+  
+{% endblock %}
